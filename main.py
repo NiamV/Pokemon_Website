@@ -231,5 +231,5 @@ def pokemon(name=None):
         traceback.print_exc()
         return render_template('404.html', name=name.title())
 
-port = int(os.environ.get('PORT', 5000))
-app.run(port = port)
+# port = int(os.environ.get('PORT', 5000))
+# app.run(port = port)
