@@ -1,0 +1,192 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pokemon</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        /* Create two equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 50%;
+            padding: 30px;
+        }
+
+        @media screen and (max-width: 1000px) {
+            .column {
+                width: 100%;
+            }
+        }
+        
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+            }
+    </style>
+</head>
+
+<body>
+    <h1>
+        {{name}} (#{{number}})
+    </h1>
+
+    <!-- Types -->
+    <table>
+        {% for item in types %}
+            <td width = "60px" style = "background: {{item.colour}}" align = center>
+                <span style="color:#FFF">
+                    {{item.name}}
+                </span>
+            </td>
+        {% endfor %}   
+    </table>
+    
+    <div class="row">
+        <div class="column">
+            <h2>Sprites</h2>
+            <section>
+            {% if data.sprites.front_default is not none %}
+                <img src="{{ data.sprites.front_default }}" alt="" width = "200">
+            {% else %}
+                There is no front sprite available
+            {% endif %}
+
+            {% if data.sprites.back_default is not none %}
+                <img src="{{ data.sprites.back_default }}" alt="" width = "200">
+            {% else %}
+                 
+            {% endif %}
+            </section>
+            
+            <h2>Abilities</h2>
+            <section>
+                {% for item in abilities %} 
+                <li>
+                    <b>{{item.name}}</b> {% if item.isHidden is eq(true) %} (Hidden) {% endif %}
+                    <ul>{{item.effect}}</ul>
+                </li>
+                {% endfor %}
+            </section>
+
+            <p></p>
+
+            <h2>Stats</h2>
+
+            <section>
+                <table>
+                    <col width = "100">
+                    <col width = "100">
+                    <col width = "100">
+                    <col width = "100">
+                    <col width = "100">
+                    <col width = "100">
+                    <col width = "100">
+                    <tr>
+                        <th>HP</th>
+                        <th>Attack</th>
+                        <th>Defence</th>
+                        <th>SpeAtk</th>
+                        <th>SpeDef</th>
+                        <th>Speed</th>
+                    </tr>
+                    <tr>
+                        {% for stat in stats %}
+                            <td align="center">{{stat}}</td>
+                        {% endfor %}
+                    </tr>
+                </table>
+            </section>
+
+            <h2>Strengths and Weaknesses</h2>
+
+            <section>
+                <table>
+                    <tr>
+                        {% for item in all_types %}
+                            <td>{{item}}</td>
+                        {%endfor%}
+                    </tr>
+                </table>
+            </section>
+
+            <h2>Other</h2>
+            <section>
+                <table>
+                    <tr>
+                        <th>Base Experience</th>
+                        <td align = "center">{{other.base_experience}}</td>
+                    </tr>
+                    <tr>
+                        <th>Base Happiness</th>
+                        <td align = "center">{{other.base_happiness}}</td>
+                    </tr>
+                    <tr>
+                        <th>Egg Groups</th>
+                        <td align = "center">{{other.egg_groups}}</td>
+                    </tr>
+                    <tr>
+                        <th>Egg Cycles</th>
+                        <td align = "center">{{other.egg_cycles}}</td>
+                    </tr>
+                    <tr>
+                        <th>Growth Rate</th>
+                        <td align = "center">{{other.growth_rate}}</td>
+                    </tr>
+                    <tr>
+                        <th>Colour</th>
+                        <td align = "center">{{other.colour}}</td>
+                    </tr>
+                    <tr>
+                        <th>Shape</th>
+                        <td align = "center">{{other.shape}}</td>
+                    </tr>
+                    <tr>
+                        <th>Height</th>
+                        <td align = "center">{{other.height}}</td>
+                    </tr>
+                    <tr>
+                        <th>Weight</th>
+                        <td align = "center">{{other.weight}}</td>
+                    </tr>
+                </table>
+            </section>
+        </div>
+
+        <div class="column">
+            <h2>Moves</h2>
+            <section>
+                <table>
+                    <tr>
+                        <th>Move</th>
+                        <th>Type</th>
+                        <th>Category</th>
+                        <th>Method</th>
+                        <th>Power</th>
+                        <th>Accuracy</th>
+                        <th>PP</th>
+                    </tr>
+                    {% for item in moves %}
+                        <tr>
+                            <td width = 120>{{item.name}}</td>
+                            <td width = 70 style = "background: {{item.type.colour}}" align = "center"> <span style='color: #FFF'> {{item.type.name}} </span></td>
+                            <td width = 70 align = "center"><img class="img-fixed" src="https://img.pokemondb.net/images/icons/{{item.class}}.png" alt="{{item.class}}" title="{{item.class}}" style="width:39px; height:16px"></td>
+                            <td width = 120 align = "center">{{item.method}} &nbsp &nbsp {{item.level}}</td>
+                            <td width = 40 align = "center">{{item.power}}</td>
+                            <td width = 40 align = "center">{{item.accuracy}}</td>
+                            <td width = 40 align = "center">{{item.pp}}</td>
+                        </tr> 
+                    {% endfor %}
+                </table>
+            </section>
+        </div>
+    </div>
+</body>
+
+</html>
